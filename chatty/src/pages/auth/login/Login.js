@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Utils } from '../../../services/utils/utils.service';
 import authService from "../../../services/api/auth/auth-service";
 import {useNavigate } from 'react-router-dom';
-
+import useLocalStorage from '../../../hooks/useLocalStorage';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,6 +17,8 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState();
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
   const navigate = useNavigate();
   const loginUser= async (event) => {
     event.preventDefault();

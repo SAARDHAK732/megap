@@ -1,10 +1,13 @@
 import React, { useState,useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import './Register.scss';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import { Utils } from '../../services/utils/utils.service';
 import authService from '../../services/api/auth/auth-service';
 import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import useSessionStorage from '../../hooks/useSessionStorage';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -14,15 +17,17 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+  const [pageReload] = useSessionStorage('pageReload', 'set');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const registerUser = async (event) => {
     event.preventDefault();
     setLoading(true);
-
     try {
       const avatarColor = Utils.avatarColor();
       const avatarImage = ''; // you can update this if needed
-
       const result = await authService.signUp({
         username,
         email,
@@ -30,8 +35,11 @@ const Register = () => {
         avatarColor,
         avatarImage
       });
-
+      setLoggedIn(true);
+      setStoredUsername(username);
+      setUser(result.data.user)
       setAlertType('alert-success');
+      Utils.dispatchUser(result,pageReload,dispatch,setUser)
       setHasError(false);
       setErrorMessage('Signup successful!'); // Optional success message
     } catch (error) {

@@ -1,7 +1,6 @@
 import { random,floor} from 'lodash'
 import { avatarColors } from './static.data'
-import { addUser,clearUser } from '../../redux-tool-kit/reducers/user/user.reducer';
-import { addNotification, clearNotification } from '../../redux-tool-kit/reducers/notification/notification.reducer';
+import { addUser,clearUser } from "../../redux-tool-kit/reducers/user/user.reducer";
 
 export class Utils{
     static avatarColor(){

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import "./Login.scss";
 import { FaArrowRight,FaArrowLeft } from 'react-icons/fa';
 import Input from '../../../components/input/Input';
@@ -8,6 +9,7 @@ import { Utils } from '../../../services/utils/utils.service';
 import authService from "../../../services/api/auth/auth-service";
 import {useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../../hooks/useLocalStorage';
+import useSessionStorage from '../../../hooks/useSessionStorage';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +21,9 @@ const Login = () => {
   const [user, setUser] = useState();
   const [setStoredUsername] = useLocalStorage('username', 'set');
   const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+  const [pageReload]=useSessionStorage("pageReload","set");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const loginUser= async (event) => {
     event.preventDefault();
     setLoading(true);
@@ -80,7 +84,7 @@ const Login = () => {
        </label>
        </div>
        <Button
-          label={`${loading ? 'SIGNIN IN PROGRESS...' : 'SIGNIN'}`}
+          label={`${loading ? 'SIGNIN IN PROGRESS...' : 'SIGNIn'}`}
           className="auth-button button"
           disabled={!username || !password}/>
         <Link to={"/forgot-password"}>

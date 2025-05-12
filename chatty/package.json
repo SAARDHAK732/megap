@@ -11,6 +11,7 @@
     "axios": "^1.8.4",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
+    "msw": "^2.7.5",
     "npm": "^11.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -39,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "jest-canvas-mock": "^2.5.2",
     "sass": "^1.86.0"
   }
 }

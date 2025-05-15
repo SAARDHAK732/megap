@@ -36,4 +36,16 @@ export class Utils{
        deleteSessionPageReload();
        setLoggedIn(false);
      }
+     static appEnvironment() {
+      const env= process.env.REACT_APP_ENVIRONMENT;
+      if (env === 'production') {
+        return 'PROD';
+      } else if (env === 'staging') {
+        return 'STAGING';
+      } else if (env === 'development') {
+        return 'DEV';
+      } else {
+        return 'UNKNOWN';
+      }
+     }
 }

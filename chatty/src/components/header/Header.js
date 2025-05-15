@@ -2,8 +2,16 @@ import logo from '../../assets/images/logo.svg';
 import React from 'react';
 import { FaCaretDown, FaRegBell, FaRegEnvelope } from 'react-icons/fa';
 import '../header/Header.scss';
-
+import Avatar from '../avatar/Avatar';
+import { useState,useEffect } from 'react';
+import { Utils } from '../../services/utils/utils.service';
 const Header = () => {
+  const [environment, setEnvironment] = useState('');
+  const backGroundColor=`${environment === 'DEV' ? '#FF0000' : environment === 'STAGING' ? '#FFA500' : environment === 'PROD' ? '#008000' : '#808080'}`;
+  useEffect(() => {
+    const env = Utils.appEnvironment();
+    setEnvironment(env);
+  }, []);
   return (
     <>
       <div className="header-nav-wrapper" data-testid="header-wrapper">
@@ -12,9 +20,7 @@ const Header = () => {
               <img src={logo} className="img-fluid" alt="" />
               <div className="app-name">
                 Chatty
-                <span className="environment">
-                    DEV
-                </span>
+                {environment && <span className="environment" style={{backgroundColor:backGroundColor}}>{environment}</span>}
               </div>
             </div>
             <div className="header-menu-toggle">
@@ -46,15 +52,19 @@ const Header = () => {
               </li>
               <li className="header-nav-item">
                 <span className="header-list-name profile-image">
-                  Avatar
+                  <Avatar     
+                    name="Danny"
+                    bgColor="red"
+                    textColor="#ffffff"
+                    size={40}
+                    avatarSrc=""/>
                 </span>
                 <span className="header-list-name profile-name">
                   Danny
                   <FaCaretDown className="header-list-icon caret" />
                 </span>
                 <ul className="dropdown-ul">
-                <li className="dropdown-li">
-                    
+                <li className="dropdown-li">                    
                 </li>
                 </ul>
               </li>

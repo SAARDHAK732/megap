@@ -4,14 +4,14 @@
   &-sidebar {
     flex: 2;
     max-width: 15%;
-    background-color: red; /* Light grey */
+    // background-color: red; /* Light grey */
     height: 100vh; /* Full screen height */
     border-right: 2px solid #ccc; /* Optional border */
   }
 
   &-content {
     flex: 6;
-    background-color: blue; /* White background */
+    // background-color: blue; /* White background */
     height: 100vh;
     padding: 20px;
   }
